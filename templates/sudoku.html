@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sudoku</title>
+        <link rel="stylesheet" href="../static/index.css">
+        <link rel="stylesheet" href="../static/sudoku.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Tourney:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Electrolize&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+            <a href="/"><h1>Micah's Tools</h1></a>
+        </header>
+        <nav>
+            <a href="/" class="navbar-item">Home</a>
+            <a href="/about" class="navbar-item">About</a>
+            <a href="/games" class="navbar-item">Games</a>
+            <a href="/tools" class="navbar-item">Tools</a>
+            <a href="/blog" class="navbar-item">Blog</a>
+        </nav>
+        <main>
+            <h2 class="page-title">Sudoku</h2>
+            <div class="game-div"> <!-- Game container -->
+                <dialog id="help-dialog">
+                    <h3>How to Play</h3>
+                    <p>
+                        Click 'Load Puzzle' to start the game.
+                        The puzzle will load onto the grid and the timer will start.
+                        The grid is checked as you fill it in. It will show red on any incorrect value.
+                        When you finish the puzzle, the game will end and your final score will be displayed.
+                        Your score depends on your speed and accuracy.
+                        Have fun!
+                    </p>
+                    <form method="dialog">
+                        <button>Close</button>
+                    </form>
+                </dialog>
+                <div class="btn-div">
+                    <button id="help-btn">How to Play</button>
+                    <p id="timer">00:00</p>
+                    <button id="load-puzzle-btn">Load Puzzle</button>
+                </div>
+                <hr>
+                <div id="sudoku-grid">
+                    <div class="sudoku-section">
+                        <p>1</p><p>2</p><p>3</p><p>4</p><p>5</p><p>6</p><p>7</p><p>8</p><p>9</p>
+                    </div>
+                    <div class="sudoku-section">
+                        <p>1</p><p>2</p><p>3</p><p>4</p><p>5</p><p>6</p><p>7</p><p>8</p><p>9</p>
+                    </div>
+                    <div class="sudoku-section">
+                        <p>1</p><p>2</p><p>3</p><p>4</p><p>5</p><p>6</p><p>7</p><p>8</p><p>9</p>
+                    </div>
+                    <div class="sudoku-section">
+                        <p>1</p><p>2</p><p>3</p><p>4</p><p>5</p><p>6</p><p>7</p><p>8</p><p>9</p>
+                    </div>
+                    <div class="sudoku-section">
+                        <p>1</p><p>2</p><p>3</p><p>4</p><p>5</p><p>6</p><p>7</p><p>8</p><p>9</p>
+                    </div>
+                    <div class="sudoku-section">
+                        <p>1</p><p>2</p><p>3</p><p>4</p><p>5</p><p>6</p><p>7</p><p>8</p><p>9</p>
+                    </div>
+                    <div class="sudoku-section">
+                        <p>1</p><p>2</p><p>3</p><p>4</p><p>5</p><p>6</p><p>7</p><p>8</p><p>9</p>
+                    </div>
+                    <div class="sudoku-section">
+                        <p>1</p><p>2</p><p>3</p><p>4</p><p>5</p><p>6</p><p>7</p><p>8</p><p>9</p>
+                    </div>
+                    <div class="sudoku-section">
+                        <p>1</p><p>2</p><p>3</p><p>4</p><p>5</p><p>6</p><p>7</p><p>8</p><p>9</p>
+                    </div>
+                </div>
+                <hr>
+                <div id="score-div">
+                    <h3>Final Score:</h3>
+                    <table>
+                        <tr>
+                            <td>Completion:</td>
+                            <td>1000</td>
+                        </tr>
+                        <tr>
+                            <td>5 x Errors:</td>
+                            <td>- 50</td>
+                        </tr>
+                        <tr>
+                            <td>Time bonus:</td>
+                            <td>300</td>
+                        </tr>
+                    </table>
+                    <p>Final Score: <b>1250</b></p>
+
+                </div>
+                
+            </div>
+        </main>
+        <footer>
+            <p>Copyright © 2025 Micah's Tools</p>  
+        </footer>
+    </body>
+</html>

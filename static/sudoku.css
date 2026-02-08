@@ -1,0 +1,74 @@
+.game-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: solid;
+    padding: 1rem;
+}
+
+.btn-div{
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+}
+
+#timer{
+    font-size: 2rem;
+    margin: 0 20px;
+
+}
+
+#sudoku-grid{
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+#sudoku-grid, .sudoku-section{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+
+
+}
+
+.sudoku-section{
+    padding: .5rem;
+    border: solid rgb(57, 255, 189);
+
+}
+
+.sudoku-section > p{
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    border: solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+}
+
+.sudoku-section > p:hover{
+    background-color: rgba(57, 255, 189, 0.258);
+    cursor: pointer;
+}
+
+.cell-selected{
+    background-color: rgb(57, 255, 189);
+    color: black;
+    border: white solid;
+}
+
+
+hr{
+    width: 100%;
+}
+
+#score-div{
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
