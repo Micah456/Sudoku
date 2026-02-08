@@ -1,0 +1,138 @@
+ a:link {
+      text-decoration: none;
+}
+
+a:visited {
+      text-decoration: none;
+}
+
+a:hover {
+      text-decoration: none;
+}
+
+a:active {
+      text-decoration: none;
+}
+
+html, body {
+    margin: 0;
+    padding: .3rem;
+    background-color: #0c0323;
+    background-image: url("images/star-background.png");
+    background-repeat: repeat;
+    background-size:100px auto;
+    
+    color: white;
+    font-family: "Electrolize", sans-serif;
+    font-size: 14px;
+    font-style: normal;
+}
+
+body{
+    margin: 10px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+ nav{
+    background-color: rgb(57, 255, 189);
+    color: black;
+    font-weight: 700;
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: center;
+    border-bottom: #000007 dashed;
+ }
+
+.navbar-item{
+    padding: .35rem 1rem;
+    margin: 0 1rem;
+    color: black;
+}
+
+
+.navbar-item:hover{
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+}
+
+.navbar-item:active{
+    background-color: #4f19ff;
+    color: white;
+}
+
+main {
+    padding: 1rem;
+    background-color: #000007;
+    margin: 1.5rem 0;
+
+    border: dashed rgb(57, 255, 189);
+}
+
+footer{
+    background-color: rgb(57, 255, 189);
+    color: black;
+    border: dashed #000007;
+    padding: 1rem;
+    text-align: center;
+}
+
+
+header {
+    text-align: center;
+    background-color: #000007;
+    padding: .5rem 0;
+    color: white;
+    border: dashed rgb(57, 255, 189);
+}
+
+h1{
+    text-align: center;
+    color: rgb(57, 255, 189);
+    padding: 1rem 0 1rem ;
+    margin: 0;
+    font-size: 3rem;
+    font-family: "Tourney", sans-serif;
+    font-weight: 300;
+}
+
+.panel{
+    padding: 1rem;
+    border: rgb(57, 255, 189) solid;
+    margin: 1rem 1rem 2rem;
+    display: flex;
+    flex-direction: row;
+    transition: all 0.3s ease;
+    color: white;
+}
+
+.panel:hover{
+    border: #fffd08 solid;
+    transform: translateY(-5px);
+}
+
+.panel:active{
+    border: #4f19ff solid;
+}
+
+.icon{
+    font-size: 10rem;
+    max-width: 13rem;
+    max-height: 13rem;
+}
+
+.panel-text{
+    padding: .5rem 2rem;
+    box-sizing: border-box;
+    max-height: 13.5rem;
+}
+
+.page-title{
+    /*border: white solid;*/
+    margin: 1rem;
+    font-size: 1.8rem;
+
+}
