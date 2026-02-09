@@ -4,13 +4,13 @@ let data = null
 let puzzleGridSections = []
 let solutionGridSections = []
 let selectedCell
+let errorCount = 0
 
 loadPuzzleBtnEl.addEventListener('click', loadPuzzle)
 document.addEventListener('keydown', (e) => {
     console.log("Key down!")
     const value = Number(e.key)
     if(!isNaN(value) &&  value > 0 && selectedCell){
-        console.log(value)
         updateCellValue(value)
     }
 
@@ -90,12 +90,14 @@ function toggleCell(cell){
 
 /**
  * Creates a section (square) of the sudoku grid
- * @param {Array} values 
+ * @param {*} id id of the section
+ * @param {Array} values values to populate the section
  * @returns sudoku section as a div element
  */
-function createSudokuSection(values){
+function createSudokuSection(id, values){
     const div = document.createElement('div')
     div.className = "sudoku-section"
+    div.id = id
     values.forEach(value => {
         div.appendChild(createSudokuCell(value))
     })
@@ -153,15 +155,18 @@ function convertPuzzleToGridSections(puzzle){
 
 /**
  * Sets the sudoku grid from the gridSections data
- * @param {Array[]} puzzle
+ * @param {Array[]} gridSections
  */
 function setSudokuGrid(gridSections){
     //Remove all childElements in sudoku grid
     removeAllChildElements(sudokuGridEl)
     //Create sections and add to sudoku grid
-    gridSections.forEach(section => {
+    for(let i = 0; i < 9; i++){
+        sudokuGridEl.appendChild(createSudokuSection(i, gridSections[i]))
+    }
+    /*gridSections.forEach(section => {
         sudokuGridEl.appendChild(createSudokuSection(section))
-    })
+    })*/
 }
 
 function startTimer(){
@@ -174,5 +179,34 @@ function startTimer(){
  */
 function updateCellValue(value){
     selectedCell.textContent = value
+    validateCell()
     toggleCell(selectedCell)
+}
+
+function validateCell(){
+    //Get position of selected cell
+    //Get section number
+    const parent = selectedCell.parentElement
+    const sectionIndex = parent.id
+    //Get position in section
+    const cellIndex = Array.prototype.indexOf.call(parent.children, selectedCell)
+    console.log(`Puzzle: Section: ${sectionIndex}, Cell: ${cellIndex}, Value: ${selectedCell.textContent}`)
+    //Get value on same position in solution
+    const answerValue = solutionGridSections[sectionIndex][cellIndex]
+    console.log(`Solution value: ${answerValue}`)
+    if(selectedCell.textContent != answerValue){//Answer wrong
+        console.log("Wrong!")
+        errorCount++
+        if(!selectedCell.classList.contains("cell-incorrect")){// Wasn't wrong before
+            selectedCell.classList.add("cell-incorrect") //Mark it wrong
+            selectedCell.style.color = "red"
+        }
+    }else{//Answer right
+        console.log("Right!")
+        if(selectedCell.classList.contains("cell-incorrect")){// Was wrong before
+            selectedCell.classList.remove("cell-incorrect")// Remove incorect mark
+            selectedCell.style.color = "rgb(57, 255, 189)"
+        }
+    }
+    console.log(`Error count: ${errorCount}`)
 }
