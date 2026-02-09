@@ -72,3 +72,7 @@ hr{
     display: flex;
     flex-direction: column;
 }
+
+#score-div > h3{
+    margin-bottom: 0;
+}
