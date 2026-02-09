@@ -3,8 +3,18 @@ const sudokuGridEl = document.getElementById("sudoku-grid")
 let data = null
 let puzzleGridSections = []
 let solutionGridSections = []
+let selectedCell
 
 loadPuzzleBtnEl.addEventListener('click', loadPuzzle)
+document.addEventListener('keydown', (e) => {
+    console.log("Key down!")
+    const value = Number(e.key)
+    if(!isNaN(value) &&  value > 0 && selectedCell){
+        console.log(value)
+        updateCellValue(value)
+    }
+
+})
 
 function removeAllChildElements(element){
     while(element.firstChild){
@@ -39,10 +49,43 @@ function createSudokuCell(value){
     const p = document.createElement('p')
     if(value > 0){//Cell not blank
         p.textContent = value
+        //No event listener - disabled
+
     }else{//Cell is blank
+        p.style.color = "rgb(57, 255, 189)"
+        p.style.border = "white solid"
         p.textContent = ""
+        //Add event listener
+        p.addEventListener('click', () => {
+            toggleCell(p)
+        })
     }
     return p
+}
+
+/**
+ * Allows you to select or deselect a cell
+ * @param {*} cell 
+ */
+function toggleCell(cell){
+    //If selected
+    if(cell.classList.contains("cell-selected")){//Selected
+        //Deselect cell
+        cell.classList.remove("cell-selected")
+        //Set selected cell to null
+        selectedCell = null
+    }
+    else{//Not selected
+        if(selectedCell){//If another cell selected
+            //Deselect old cell
+            selectedCell.classList.remove("cell-selected")
+        }
+        
+        //Select cell
+        cell.classList.add("cell-selected")
+        //Set selected cell to cell
+        selectedCell = cell
+    }
 }
 
 /**
@@ -123,4 +166,13 @@ function setSudokuGrid(gridSections){
 
 function startTimer(){
     console.log("Starting timer...")
+}
+
+/**
+ * Updates value in the selected cell to a specific value
+ * @param {Number} value 
+ */
+function updateCellValue(value){
+    selectedCell.textContent = value
+    toggleCell(selectedCell)
 }
