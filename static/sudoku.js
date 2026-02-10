@@ -1,6 +1,7 @@
 const loadPuzzleBtnEl = document.getElementById("load-puzzle-btn")
 const sudokuGridEl = document.getElementById("sudoku-grid")
 const timerEl = document.getElementById("timer")
+const scoreDivEl = document.getElementById("score-div")
 let data = null
 let puzzleGridSections = []
 let solutionGridSections = []
@@ -32,12 +33,12 @@ function removeAllChildElements(element){
  * Loads the puzzles from the API and stores it in the puzzle variable
  */
 function loadPuzzle(){
-    //If timer exists, stop it (if running) and reset error count
+    //If timer exists, stop it (if running), reset error count, and hide scorediv
     if(timer){ 
         stopTimer()
         errorCount = 0
+        scoreDivEl.style.maxHeight = "0"
     }
-    
     timerEl.textContent = "00:00:00"
     fetch("https://sudoku-api.vercel.app/api/dosuku", {
         method: "GET",
@@ -279,4 +280,84 @@ function stopTimer(){
 function gameOver(){
     stopTimer()
     console.log("Well done! Game over!")
+    let totalScore = 1000 //1000 added for completion bonus
+    //Generate time bonus
+    const timeBonus = calculateTimeBonus()
+    //Generate error penalties
+    const errorPenalty = errorCount * -50    
+    //Calculate total score
+    totalScore = totalScore + timeBonus + errorPenalty
+    //Fill score div
+    const finalScoreHTML = 
+        `
+            <h3>Game Over!</h3>
+            <p>Final Score:</p>
+            <table>
+                <tr>
+                    <td>Completion:</td>
+                    <td>1000</td>
+                </tr>
+                <tr>
+                    <td>${errorCount} x Errors:</td>
+                    <td>${errorPenalty}</td>
+                </tr>
+                <tr>
+                    <td>Time Bonus:</td>
+                    <td>${timeBonus}</td>
+                </tr>
+            </table>
+            <p>Final Score: <b>${totalScore}</b></p>
+        `
+    scoreDivEl.innerHTML = finalScoreHTML
+    //Show score div
+    const y = scoreDivEl.getBoundingClientRect().top + window.scrollY;
+    window.scroll({
+        top: y,
+        behavior: 'smooth'
+    })
+    scoreDivEl.style.maxHeight = scoreDivEl.scrollHeight + "px"
+}
+
+/**
+ * Calculates the time bonus
+ * @returns {Number} time bonus
+ */
+function calculateTimeBonus(){
+    //Get time elapsed
+    const timeElapsedString = timerEl.textContent
+    //Get hours elapsed
+    const hours = Number(timeElapsedString.substring(0,2))
+    //If more than 0 hours, return a score of 0
+    if(hours > 0) {return 0}
+    //Get minutes elapsed
+    const minutes = Number(timeElapsedString.substring(3,5))
+    //Return score based on minutes and difficulty
+    if(data['difficulty'] == "Medium"){ //Medium
+        switch(true){
+            case minutes < 10: //Excellent
+                return 400
+            case minutes >= 10 && minutes <15: //Very Good
+                return 200
+            case minutes >= 15 && minutes <20: //Good
+                return 100
+            case minutes >=20 && minutes <30: //Okay
+                return 50
+            default:
+                return 0
+        }
+    }else{ //Hard
+        switch(true){
+            case minutes < 30: //Excellent
+                return 400
+            case minutes >= 30 && minutes <35: //Very Good
+                return 200
+            case minutes >= 35 && minutes <40: //Good
+                return 100
+            case minutes >=40 && minutes <50: //Okay
+                return 50
+            default:
+                return 0
+        }
+    }
+    
 }
