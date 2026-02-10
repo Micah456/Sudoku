@@ -184,29 +184,41 @@ function updateCellValue(value){
 }
 
 function validateCell(){
-    //Get position of selected cell
-    //Get section number
-    const parent = selectedCell.parentElement
-    const sectionIndex = parent.id
-    //Get position in section
-    const cellIndex = Array.prototype.indexOf.call(parent.children, selectedCell)
-    console.log(`Puzzle: Section: ${sectionIndex}, Cell: ${cellIndex}, Value: ${selectedCell.textContent}`)
-    //Get value on same position in solution
-    const answerValue = solutionGridSections[sectionIndex][cellIndex]
-    console.log(`Solution value: ${answerValue}`)
-    if(selectedCell.textContent != answerValue){//Answer wrong
+    //Check if cell is correct
+    const isCorrect = cellIsCorrect(selectedCell)
+    if(isCorrect == true){//Answer correct
+        console.log("Right!")
+        if(selectedCell.classList.contains("cell-incorrect")){// Was wrong before
+            selectedCell.classList.remove("cell-incorrect")// Remove incorect mark
+            selectedCell.style.color = "rgb(57, 255, 189)" //Reset the colour
+        }
+    }
+    else{//Answer incorrect
         console.log("Wrong!")
         errorCount++
         if(!selectedCell.classList.contains("cell-incorrect")){// Wasn't wrong before
             selectedCell.classList.add("cell-incorrect") //Mark it wrong
-            selectedCell.style.color = "red"
-        }
-    }else{//Answer right
-        console.log("Right!")
-        if(selectedCell.classList.contains("cell-incorrect")){// Was wrong before
-            selectedCell.classList.remove("cell-incorrect")// Remove incorect mark
-            selectedCell.style.color = "rgb(57, 255, 189)"
+            selectedCell.style.color = "red" //Change font colour to red
         }
     }
     console.log(`Error count: ${errorCount}`)
+}
+
+/**
+ * Checks if cell has been filled with the correct value
+ * @param {HTMLElement} cell cell to be checked
+ * @returns {boolean} true if correct, false if incorrect
+ */
+function cellIsCorrect(cell){
+    //Get position of selected cell
+    //Get section number
+    const section = cell.parentElement
+    const sectionIndex = section.id
+    //Get position in section
+    const cellIndex = Array.prototype.indexOf.call(section.children, cell)
+    console.log(`Puzzle: Section: ${sectionIndex}, Cell: ${cellIndex}, Value: ${cell.textContent}`)
+    //Get value on same position in solution
+    const answerValue = solutionGridSections[sectionIndex][cellIndex]
+    console.log(`Solution value: ${answerValue}`)
+    return cell.textContent == answerValue
 }
