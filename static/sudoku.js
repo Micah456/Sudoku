@@ -1,20 +1,26 @@
 const loadPuzzleBtnEl = document.getElementById("load-puzzle-btn")
 const sudokuGridEl = document.getElementById("sudoku-grid")
+const timerEl = document.getElementById("timer")
 let data = null
 let puzzleGridSections = []
 let solutionGridSections = []
 let selectedCell
 let errorCount = 0
+let startTime
+let timer = null
 
 loadPuzzleBtnEl.addEventListener('click', loadPuzzle)
 document.addEventListener('keydown', (e) => {
     console.log("Key down!")
+    if(e.key == "Escape") {gameOver()} //FOR TESTING. DELETE AFTER
     const value = Number(e.key)
     if(!isNaN(value) &&  value > 0 && selectedCell){
         updateCellValue(value)
     }
 
 })
+
+
 
 function removeAllChildElements(element){
     while(element.firstChild){
@@ -26,6 +32,13 @@ function removeAllChildElements(element){
  * Loads the puzzles from the API and stores it in the puzzle variable
  */
 function loadPuzzle(){
+    //If timer exists, stop it (if running) and reset error count
+    if(timer){ 
+        stopTimer()
+        errorCount = 0
+    }
+    
+    timerEl.textContent = "00:00:00"
     fetch("https://sudoku-api.vercel.app/api/dosuku", {
         method: "GET",
     })
@@ -171,6 +184,16 @@ function setSudokuGrid(gridSections){
 
 function startTimer(){
     console.log("Starting timer...")
+    startTime = new Date().getTime()
+    timer = setInterval(() => {
+        const now = new Date().getTime()
+        const elapsed = now - startTime
+        const hours = String(Math.floor(elapsed / (1000 * 60 * 60))).padStart(2, "0")
+        const minutes = String(Math.floor((elapsed % (1000 * 60 * 60))/(1000 * 60 ))).padStart(2, "0")
+        const seconds = String(Math.floor((elapsed % (1000 * 60)) / 1000)).padStart(2, "0")
+        const timeElapsed = `${hours}:${minutes}:${seconds}`
+        timerEl.textContent = timeElapsed
+    }, 1000)
 }
 
 /**
@@ -249,6 +272,11 @@ function validatePuzzle(){
     gameOver()
 }
 
+function stopTimer(){
+    clearInterval(timer)
+}
+
 function gameOver(){
+    stopTimer()
     console.log("Well done! Game over!")
 }
