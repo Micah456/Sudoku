@@ -13,7 +13,6 @@ let timer = null
 loadPuzzleBtnEl.addEventListener('click', loadPuzzle)
 document.addEventListener('keydown', (e) => {
     console.log("Key down!")
-    if(e.key == "Escape") {gameOver()} //FOR TESTING. DELETE AFTER
     const value = Number(e.key)
     if(!isNaN(value) &&  value > 0 && selectedCell){
         updateCellValue(value)
