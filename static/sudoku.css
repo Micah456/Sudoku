@@ -78,3 +78,10 @@ hr{
 #score-div > h3{
     margin-bottom: 0;
 }
+
+#help-dialog{
+    width: 50vw;
+    background-color: black;
+    color: rgb(57, 255, 189);
+    text-align: center;
+}

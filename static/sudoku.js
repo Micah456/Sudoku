@@ -1,4 +1,6 @@
 const loadPuzzleBtnEl = document.getElementById("load-puzzle-btn")
+const helpBtnEl = document.getElementById("help-btn")
+const helpDialogEl = document.getElementById("help-dialog")
 const sudokuGridEl = document.getElementById("sudoku-grid")
 const timerEl = document.getElementById("timer")
 const scoreDivEl = document.getElementById("score-div")
@@ -10,6 +12,9 @@ let errorCount = 0
 let startTime
 let timer = null
 
+helpBtnEl.addEventListener('click', () => {
+    helpDialogEl.showModal()
+})
 loadPuzzleBtnEl.addEventListener('click', loadPuzzle)
 document.addEventListener('keydown', (e) => {
     console.log("Key down!")
