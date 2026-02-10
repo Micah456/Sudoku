@@ -192,6 +192,7 @@ function validateCell(){
             selectedCell.classList.remove("cell-incorrect")// Remove incorect mark
             selectedCell.style.color = "rgb(57, 255, 189)" //Reset the colour
         }
+        validatePuzzle()
     }
     else{//Answer incorrect
         console.log("Wrong!")
@@ -216,9 +217,38 @@ function cellIsCorrect(cell){
     const sectionIndex = section.id
     //Get position in section
     const cellIndex = Array.prototype.indexOf.call(section.children, cell)
-    console.log(`Puzzle: Section: ${sectionIndex}, Cell: ${cellIndex}, Value: ${cell.textContent}`)
+    console.log(`Checking: section: ${sectionIndex}, cell: ${cellIndex}`)
     //Get value on same position in solution
     const answerValue = solutionGridSections[sectionIndex][cellIndex]
-    console.log(`Solution value: ${answerValue}`)
+    console.log(`User value: ${cell.textContent}, Solution value: ${answerValue}, Correct: ${cell.textContent == answerValue}`)
     return cell.textContent == answerValue
+}
+
+/**
+ * Checks the puzzle is completed and correct. If so, triggers gameOver.
+ */
+function validatePuzzle(){
+    console.log("Validating puzzle")
+    //Get sections
+    const sections = Array.from(sudokuGridEl.children)
+    //For each section
+    for(const section of sections){
+        //Get cells
+        const cells = Array.from(section.children)
+        //Validate each cell
+        for(const cell of cells){
+            //If any incorrect
+            if(!cellIsCorrect(cell)){
+                //Break
+                console.log("Puzzle not correct")
+                return
+            }
+        }
+    }
+    //If all correct, call gameOver
+    gameOver()
+}
+
+function gameOver(){
+    console.log("Well done! Game over!")
 }
